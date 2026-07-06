@@ -17,7 +17,7 @@
     <meta property="og:type" content="business.business">
     <meta property="og:url" content="https://yourusername.github.io/your-repo-name/">
 
-    <!-- GOOGLE LOCAL BUSINESS SCHEMA (JSON-LD) - Essential for AI, Maps & local ranks -->
+    <!-- GOOGLE LOCAL BUSINESS SCHEMA (JSON-LD) -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -76,7 +76,6 @@
             line-height: 1.6;
         }
 
-        /* Hero Section with Premium Background Image */
         header {
             background: linear-gradient(rgba(130, 17, 49, 0.88), rgba(34, 40, 49, 0.92)), url('https://content.jdmagicbox.com/comp/gandhinagar-gujarat/k9/9999pxx79.xx79.230617111502.r4k9/catalogue/union-living-kudasan-gandhinagar-gujarat-paying-guest-accommodations-at8edig5ty.jpg') no-repeat center center/cover;
             color: white;
@@ -128,6 +127,8 @@
             font-size: 1rem;
             transition: all 0.3s ease;
             box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            border: none;
+            cursor: pointer;
         }
 
         .btn-call { background-color: white; color: var(--primary); }
@@ -139,7 +140,6 @@
             box-shadow: 0 6px 20px rgba(0,0,0,0.3);
         }
 
-        /* Main Container */
         .container {
             max-width: 1100px;
             margin: 0 auto;
@@ -208,6 +208,54 @@
             margin-bottom: 8px;
         }
 
+        /* LEAD FUNNEL / FORM STYLING */
+        .lead-funnel-container {
+            background: white;
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(130, 17, 49, 0.08);
+            max-width: 650px;
+            margin: 0 auto;
+            border: 1px solid rgba(130, 17, 49, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--dark);
+            font-size: 0.95rem;
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+            outline: none;
+        }
+
+        .form-group input:focus, .form-group select:focus {
+            border-color: var(--primary);
+        }
+
+        .btn-submit {
+            width: 100%;
+            justify-content: center;
+            background-color: var(--success);
+            color: white;
+            padding: 15px;
+            font-size: 1.1rem;
+            border-radius: 8px;
+        }
+
         /* 360 View & Maps Layout */
         .embed-grid {
             display: grid;
@@ -235,7 +283,6 @@
             border: 0;
         }
 
-        /* Map frame wrapper optimization */
         .map-seo-wrapper {
             grid-template-columns: 1fr;
             margin-top: 30px;
@@ -257,6 +304,7 @@
             .contact-section { grid-template-columns: 1fr; padding: 25px; }
             header h1 { font-size: 2.2rem; }
             .embed-grid { grid-template-columns: 1fr; }
+            .lead-funnel-container { padding: 25px 20px; }
         }
 
         .contact-info h3 {
@@ -321,7 +369,7 @@
             text-decoration: underline;
         }
 
-        /* Floating Contact Action Toggle */
+        /* Floating Contact Action / Trigger Modal Instead of Plain Link */
         .floating-whatsapp {
             position: fixed;
             bottom: 25px;
@@ -338,13 +386,65 @@
             box-shadow: 2px 4px 15px rgba(0,0,0,0.3);
             z-index: 1000;
             transition: transform 0.3s;
+            border: none;
+            cursor: pointer;
         }
         .floating-whatsapp:hover { transform: scale(1.1); }
+
+        /* Pop-Up Modal Backing */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+            padding: 15px;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-box {
+            background: white;
+            padding: 30px;
+            border-radius: 16px;
+            width: 100%;
+            max-width: 500px;
+            position: relative;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+            transform: translateY(-20px);
+            transition: transform 0.3s ease;
+        }
+
+        .modal-overlay.active .modal-box {
+            transform: translateY(0);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 1.5rem;
+            background: none;
+            border: none;
+            color: #888;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
 
-    <!-- Hero Header Optimized with Target Local Keywords -->
+    <!-- Hero Header -->
     <header>
         <div class="hero-container">
             <h1>Vajra Executive Ladies PG</h1>
@@ -352,7 +452,7 @@
             <p><i class="fa-solid fa-location-dot"></i> 47, Vyalikaval HBCS Layout, Nagavara, Bengaluru, Karnataka 560045</p>
             <div class="cta-buttons">
                 <a href="tel:+916362520085" class="btn btn-call"><i class="fa-solid fa-phone"></i> Call +91 6362520085</a>
-                <a href="https://wa.me/916362520085" target="_blank" class="btn btn-whatsapp"><i class="fa-brands fa-whatsapp"></i> Chat on WhatsApp</a>
+                <button onclick="openLeadModal('Hero CTA')" class="btn btn-whatsapp"><i class="fa-brands fa-whatsapp"></i> Check Availability</button>
                 <a href="https://g.page/r/CQkIXn6K_1o5EBM/review" target="_blank" class="btn btn-review"><i class="fa-solid fa-star"></i> Write a Google Review</a>
             </div>
         </div>
@@ -398,13 +498,42 @@
             </div>
         </section>
 
-        <!-- 360 Views & Map Section (Feeds local maps ranking) -->
+        <!-- INLINE LEAD CAPTURE FUNNEL -->
+        <section id="book-now">
+            <h3 class="section-title">Check Room Availability & Rent</h3>
+            <p class="section-subtitle">Fill out this quick form to instantly view current deals and connect directly with our manager on WhatsApp.</p>
+            
+            <div class="lead-funnel-container">
+                <form onsubmit="handleFormSubmit(event, 'Inline Form')">
+                    <div class="form-group">
+                        <label for="inline-name">Your Full Name</label>
+                        <input type="text" id="inline-name" placeholder="Enter your name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="inline-phone">WhatsApp Mobile Number</label>
+                        <input type="tel" id="inline-phone" placeholder="Enter 10-digit mobile number" pattern="[0-9]{10}" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="inline-room">Preferred Room Configuration</label>
+                        <select id="inline-room" required>
+                            <option value="" disabled selected>Select Sharing Option...</option>
+                            <option value="Single Room">Single Sharing (Private Room)</option>
+                            <option value="2 Sharing">2 Sharing Room</option>
+                            <option value="3 Sharing">3 Sharing Room</option>
+                            <option value="4 Sharing">4 Sharing Room</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-submit"><i class="fa-brands fa-whatsapp"></i> Get Pricing via WhatsApp</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- 360 Views & Map Section -->
         <section id="location">
             <h3 class="section-title">Interactive 360° View & Directions</h3>
             <p class="section-subtitle">Look inside our facility virtually and get real-time navigation mapping via Google Maps.</p>
             
             <div class="embed-grid">
-                <!-- 360 Virtual Interactive Street Views -->
                 <div class="iframe-container">
                     <iframe src="https://www.google.com/maps/embed?pb=!4v1783360931541!6m8!1m7!1sCAoSHENJQUJJaEJWY3drQzM0emNrWEV6cjl4aWdEUTA.!2m2!1d13.03561073091371!2d77.61259903904889!3f10.447540915328306!4f22.171404758269304!5f0.4000000000000002" loading="lazy" title="Vajra PG 360 Indoor Tour View 1"></iframe>
                 </div>
@@ -416,7 +545,6 @@
                 </div>
             </div>
 
-            <!-- Embedded Google Business Location Map to solidify NAP data consistency -->
             <div class="embed-grid map-seo-wrapper">
                 <div class="iframe-container" style="padding-bottom: 0; height: 400px;">
                     <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3887.000958085202!2d77.612599!3d13.0356107!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae176934f78f21%3A0x395aff8a7e5e0809!2sVajra%20Executive%20Executive%20Ladis%20PG!5e0!3m2!1sen!2sin!4v1783361439377!5m2!1sen!2sin" loading="lazy" title="Vajra Executive Ladies PG Google Maps Location"></iframe>
@@ -424,7 +552,7 @@
             </div>
         </section>
 
-        <!-- FAQ Section: Helps AI and Search engines contextually pick answers for queries -->
+        <!-- FAQ Section -->
         <section id="faq">
             <h3 class="section-title">Frequently Asked Questions</h3>
             <p class="section-subtitle">Answers to common queries regarding our accommodation near Manyata Tech Park.</p>
@@ -444,7 +572,7 @@
             </div>
         </section>
 
-        <!-- Contact & Location Card (Matches exact NAP format) -->
+        <!-- Contact & Location Card -->
         <section class="contact-section">
             <div class="contact-info">
                 <h3>Vajra Executive Ladies PG</h3>
@@ -461,16 +589,92 @@
 
     </div>
 
-    <!-- Floating Quick Communication Widget -->
-    <a href="https://wa.me/916362520085" class="floating-whatsapp" target="_blank" aria-label="Contact Vajra PG via WhatsApp">
+    <!-- FLOATING ACTION BUTTON TRIGGERING THE MODAL FUNNEL -->
+    <button onclick="openLeadModal('Floating Widget')" class="floating-whatsapp" aria-label="Contact Vajra PG via WhatsApp">
         <i class="fa-brands fa-whatsapp"></i>
-    </a>
+    </button>
 
-    <!-- Footer with styling credits linked to your digital agency -->
+    <!-- POP-UP LEAD CAPTURE MODAL -->
+    <div id="leadModal" class="modal-overlay" onclick="closeLeadModal(event)">
+        <div class="modal-box">
+            <button class="modal-close" onclick="document.getElementById('leadModal').classList.remove('active')">&times;</button>
+            <h3 style="color: var(--primary); margin-bottom: 10px; font-size: 1.5rem; text-align: center;">Check Availability</h3>
+            <p style="text-align: center; font-size: 0.9rem; color: #666; margin-bottom: 20px;">Enter details below to chat directly with the manager on WhatsApp.</p>
+            
+            <form onsubmit="handleFormSubmit(event, 'Modal Form')">
+                <div class="form-group">
+                    <label for="modal-name">Your Full Name</label>
+                    <input type="text" id="modal-name" placeholder="Enter your name" required>
+                </div>
+                <div class="form-group">
+                    <label for="modal-phone">WhatsApp Mobile Number</label>
+                    <input type="tel" id="modal-phone" placeholder="Enter 10-digit mobile number" pattern="[0-9]{10}" required>
+                </div>
+                <div class="form-group">
+                    <label for="modal-room">Preferred Room Configuration</label>
+                    <select id="modal-room" required>
+                        <option value="" disabled selected>Select Sharing Option...</option>
+                        <option value="Single Room">Single Sharing (Private Room)</option>
+                        <option value="2 Sharing">2 Sharing Room</option>
+                        <option value="3 Sharing">3 Sharing Room</option>
+                        <option value="4 Sharing">4 Sharing Room</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-submit" style="margin-top: 10px;"><i class="fa-brands fa-whatsapp"></i> Connect via WhatsApp</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
     <footer>
         <p>&copy; 2026 Vajra Executive Ladies PG Nagavara. All Rights Reserved.</p>
         <p style="font-size: 0.8rem; letter-spacing: 0.5px;">Website designed & maintained by <a class="credit-link" href="https://spdigitaljourney.github.io/" target="_blank">spdigitaljourney</a></p>
     </footer>
 
+    <!-- FUNNEL INTERACTION & JAVASCRIPT REDIRECTION ENGINE -->
+    <script>
+        function openLeadModal(source) {
+            document.getElementById('leadModal').classList.add('active');
+            window.currentFunnelSource = source;
+        }
+
+        function closeLeadModal(e) {
+            if(e.target.classList.contains('modal-overlay')) {
+                document.getElementById('leadModal').classList.remove('active');
+            }
+        }
+
+        function handleFormSubmit(event, formType) {
+            event.preventDefault();
+            
+            let name, phone, room;
+            
+            if (formType === 'Inline Form') {
+                name = document.getElementById('inline-name').value.trim();
+                phone = document.getElementById('inline-phone').value.trim();
+                room = document.getElementById('inline-room').value;
+            } else {
+                name = document.getElementById('modal-name').value.trim();
+                phone = document.getElementById('modal-phone').value.trim();
+                room = document.getElementById('modal-room').value;
+                document.getElementById('leadModal').classList.remove('active');
+            }
+
+            // Target PG Administration Phone Number
+            const targetWhatsappNumber = "916362520085";
+            
+            // Structured messaging payload built for conversions
+            const message = `Hello Vajra Executive PG, I would like to check room availability.%0A%0A` +
+                            `• *Name:* ${encodeURIComponent(name)}%0A` +
+                            `• *Phone:* ${encodeURIComponent(phone)}%0A` +
+                            `• *Sharing Preferred:* ${encodeURIComponent(room)}%0A%0A` +
+                            `Please let me know the rental pricing structure and availability status. Thanks!`;
+            
+            const whatsappUrl = `https://wa.me/${targetWhatsappNumber}?text=${message}`;
+            
+            // Redirect smoothly to the custom pre-filled message layout
+            window.open(whatsappUrl, '_blank');
+        }
+    </script>
 </body>
 </html>
